@@ -8,7 +8,9 @@ readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.13"
+sounddevice = "^0.4.6"
+scipy = "^1.11.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.10.0"
