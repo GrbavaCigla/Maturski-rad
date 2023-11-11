@@ -8,9 +8,10 @@ readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
+python = ">=3.9,<3.12"
 sounddevice = "^0.4.6"
 scipy = "^1.11.3"
+noisereduce = {git = "https://github.com/timsainb/noisereduce"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.10.0"

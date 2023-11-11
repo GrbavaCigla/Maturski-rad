@@ -1,8 +1,8 @@
 import argparse
-from .commands import record
+from .commands import record, plot, clean
 
 
-COMMANDS = {"record": record}
+COMMANDS = {"record": record, "plot": plot, "clean": clean}
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

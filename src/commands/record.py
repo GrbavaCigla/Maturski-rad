@@ -1,9 +1,17 @@
-import sounddevice as sd
-import scipy.io.wavfile
-from time import sleep
 from argparse import ArgumentParser, FileType, Namespace
+from time import sleep
 
-DEFAULTS = {"duration": 3, "frequency": 44100, "output": "output.wav", "sleep": 3}
+from scipy.io import wavfile
+import sounddevice as sd
+import noisereduce
+
+DEFAULTS = {
+    "duration": 3,
+    "frequency": 44100,
+    "output": "output.wav",
+    "sleep": 3,
+    "noise": False,
+}
 
 
 def setup(parser: ArgumentParser):
@@ -13,6 +21,14 @@ def setup(parser: ArgumentParser):
         dest="duration",
         type=int,
         default=DEFAULTS["duration"],
+    )
+
+    parser.add_argument(
+        "-n",
+        "--noise",
+        dest="noise",
+        action="store_true",
+        default=DEFAULTS["noise"],
     )
 
     parser.add_argument(
@@ -43,7 +59,7 @@ def setup(parser: ArgumentParser):
 def run(args: Namespace):
     sleep(args.sleep)
 
-    print("Recording") # TODO: Replace this with some package-wide function
+    print("Recording")  # TODO: Replace this with some package-wide function
 
     recording = sd.rec(
         args.duration * args.frequency,
@@ -53,7 +69,12 @@ def run(args: Namespace):
         dtype="float64",
     )
 
-    scipy.io.wavfile.write(
+    if not args.noise:
+        print("Removing noise")  # TODO: Replace this with some package-wide function
+        recording = recording[:, 0]
+        recording = noisereduce.reduce_noise(y=recording, sr=args.frequency)
+
+    wavfile.write(
         args.output,
         args.frequency,
         recording,
