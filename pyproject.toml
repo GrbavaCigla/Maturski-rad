@@ -11,7 +11,7 @@ packages = [{include = "src"}]
 python = ">=3.9,<3.12"
 sounddevice = "^0.4.6"
 scipy = "^1.11.3"
-noisereduce = {git = "https://github.com/timsainb/noisereduce"}
+librosa = "^0.10.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.10.0"

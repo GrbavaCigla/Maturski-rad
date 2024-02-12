@@ -3,7 +3,6 @@ from time import sleep
 
 from scipy.io import wavfile
 import sounddevice as sd
-import noisereduce
 
 DEFAULTS = {
     "duration": 3,
@@ -21,14 +20,6 @@ def setup(parser: ArgumentParser):
         dest="duration",
         type=int,
         default=DEFAULTS["duration"],
-    )
-
-    parser.add_argument(
-        "-n",
-        "--noise",
-        dest="noise",
-        action="store_true",
-        default=DEFAULTS["noise"],
     )
 
     parser.add_argument(
@@ -68,11 +59,6 @@ def run(args: Namespace):
         blocking=True,
         dtype="float64",
     )
-
-    if not args.noise:
-        print("Removing noise")  # TODO: Replace this with some package-wide function
-        recording = recording[:, 0]
-        recording = noisereduce.reduce_noise(y=recording, sr=args.frequency)
 
     wavfile.write(
         args.output,
