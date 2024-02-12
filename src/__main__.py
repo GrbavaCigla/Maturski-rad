@@ -1,11 +1,12 @@
 import argparse
-from .commands import record, plot, synth
+from .commands import record, plot, synth, estimate
 
 
 COMMANDS = {
     "record": record,
     "plot": plot,
     "synth": synth,
+    "estimate": estimate
 }
 
 if __name__ == "__main__":
