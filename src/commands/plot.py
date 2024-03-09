@@ -25,7 +25,7 @@ def run(args: Namespace):
 
     if args.spectrogram:
         x = np.arange(0, frequency / 2, 1 / duration)
-        y = abs(fft(recording))[len(x)]
+        y = abs(fft(recording))[:len(x)]
     else:
         x = np.arange(0, duration, 1 / frequency)
         y = recording
